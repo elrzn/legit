@@ -70,7 +70,7 @@
 (define-argparser parse-rargdef (:req symbol prefix name options)
   (argetypecase symbol
     (:--
-     `((T (list "--" ,symbol))))
+     `((T (list ,symbol))))
     (:member
      (loop for thing in (cdr args)
            collect `((eql ,thing) ,(when thing (format NIL "~(~a~)" thing)))))
@@ -82,7 +82,7 @@
   `(when ,(p-symb symbol)
      ,(argetypecase symbol
         (:--
-         `((T (when ,symbol (list "--" ,symbol)))))
+         `((T (when ,symbol (list ,symbol)))))
         (:member
          (loop for thing in (cdr args)
                collect `((eql ,thing) ,thing)))
