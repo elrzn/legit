@@ -222,3 +222,6 @@
 
 (define-repo-function bare-p (repository &key)
   (string-equal "true" (git-value repository `bare-p (git-rev-parse NIL :is-bare-repository T))))
+
+(define-repo-function commit-date (repository commit &key)
+  (git-value repository `(date ,commit) (git-log :pretty "%aD" :max-count 1 :paths commit)))
