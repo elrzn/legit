@@ -136,8 +136,10 @@
   (git-push :repository remote :refspecs refspecs)
   repository)
 
-(define-repo-function commits (repository &key)
-  (loop with text = (git-value repository `(commits) (git-rev-list :all T))
+(define-repo-function commits (repository &key max-count)
+  (loop with text = (if max-count
+                        (git-value repository `(commits ,max-count) (git-rev-list :commits "HEAD" :max-count max-count))
+                      (git-value repository `(commits) (git-rev-list :all T)))
         with stream = (make-string-input-stream text)
         for line = (read-line stream NIL NIL)
         while line
