@@ -361,6 +361,7 @@
   &key soft mixed hard merge keep quiet patch)
 
 (define-git-wrapper git-rev-list
+  &optional commits
   &key (max-count :arg=) (skip :arg=) (since :arg=) (until :arg=) (max-age :arg=)
   (author :arg=) (grep-reflog :arg=) (grep :arg=) all-match invert-grep
   regexp-ignore-case basic-regexp extended-regexp fixed-strings perl-regexp
